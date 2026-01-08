@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Tours | Prime Properties</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a5276;
+            --secondary: #f39c12;
+            --dark: #2c3e50;
+            --light: #f9f9f9;
+            --gray: #ecf0f1;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f7fa;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .top-bar {
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 0;
+            font-size: 0.9rem;
+        }
+
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            color: var(--secondary);
+        }
+
+        .main-header {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .logo-text span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            padding: 5px 0;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--primary);
+        }
+
+        nav a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            left: 0;
+            bottom: 0;
+            transition: var(--transition);
+        }
+
+        nav a:hover:after, nav a.active:after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Virtual Tours Hero */
+        .tours-hero {
+            background: linear-gradient(rgba(26, 82, 118, 0.8), rgba(26, 82, 118, 0.9)), url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .tours-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .tours-hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Virtual Reality Section */
+        .vr-section {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            max-width: 700px;
+            margin: 0 auto 50px;
+            font-size: 1.1rem;
+        }
+
+        .vr-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .vr-content h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .vr-content p {
+            margin-bottom: 30px;
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .vr-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .vr-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .vr-feature i {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin-top: 5px;
+        }
+
+        .vr-feature h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .vr-feature p {
+            font-size: 0.95rem;
+            margin: 0;
+            color: #666;
+        }
+
+        .vr-demo {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .vr-demo img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .vr-demo:hover img {
+            transform: scale(1.05);
+        }
+
+        .vr-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            color: white;
+        }
+
+        .vr-overlay h4 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .vr-overlay p {
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            background-color: #e67e22;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background-color: white;
+            color: var(--primary);
+        }
+
+        /* Featured Tours */
+        .featured-tours {
+            padding: 80px 0;
+            background-color: var(--gray);
+        }
+
+        .tours-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: white;
+            border: 2px solid #ddd;
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .tours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .tour-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .tour-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .tour-media {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .tour-media img, .tour-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .tour-card:hover .tour-media img,
+        .tour-card:hover .tour-media video {
+            transform: scale(1.1);
+        }
+
+        .tour-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: var(--secondary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .tour-info {
+            padding: 25px;
+        }
+
+        .tour-info h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        .tour-location {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+        }
+
+        .tour-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .tour-features {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tour-feature {
+            text-align: center;
+        }
+
+        .tour-feature i {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .tour-feature-value {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .tour-feature-label {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+        }
+
+        .tour-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tour-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Interactive Tour */
+        .interactive-tour {
+            padding: 80px 0;
+            background-color: white;
+        }
+
+        .tour-viewer {
+            position: relative;
+            height: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .tour-viewer iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .tour-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .control-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control-btn:hover {
+            background-color: #154360;
+        }
+
+        .control-btn.secondary {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .control-btn.secondary:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 80px 0;
+            background-color: var(--gray);
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0 auto 25px;
+        }
+
+        .step-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .step-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(rgba(26, 82, 118, 0.9), rgba(26, 82, 118, 0.9)), url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--secondary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+
+        /* Modal for Fullscreen Tour */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-body {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-tour {
+            width: 100%;
+            max-width: 1200px;
+            height: 80vh;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* VR Goggles Icon Animation */
+        .vr-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .vr-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .vr-demo {
+                order: -1;
+            }
+            
+            .tours-hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .tours-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 140px;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: var(--shadow);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+            }
+
+            nav ul.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .tours-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tours-hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-stats {
+                gap: 30px;
+            }
+            
+            .stat-number {
+                font-size: 2rem;
+            }
+            
+            .tour-viewer {
+                height: 400px;
+            }
+            
+            .vr-features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .tours-hero {
+                padding: 70px 0;
+            }
+            
+            .tours-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .top-bar-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .tour-actions {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .tour-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .control-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="contact-info">
+                <span><i class="fas fa-phone-alt"></i> +1 (555) 123-4567</span>
+                <span><i class="fas fa-envelope"></i> info@primeproperties.com</span>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container main-header">
+            <div class="logo">
+                <div class="logo-text">PRIME<span>PROPERTIES</span></div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav>
+                <ul id="mainMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="properties.html">Properties</a></li>
+                    <li><a href="professionals.html">Professionals</a></li>
+                    <li><a href="tours.html" class="active">Virtual Tours</a></li>
+                    <li><a href="help.html">Help Desk</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Virtual Tours Hero -->
+    <section class="tours-hero">
+        <div class="container">
+            <h1>Immersive Virtual Property Tours</h1>
+            <p>Explore properties from anywhere in the world with our cutting-edge virtual reality and 360° tour technology</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">150+</div>
+                    <div class="stat-label">Virtual Tours</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Available</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Client Satisfaction</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">VR Enabled</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Virtual Reality Section -->
+    <section class="vr-section">
+        <div class="container">
+            <h2 class="section-title">Virtual Reality Property Experience</h2>
+            <p class="section-subtitle">Step inside properties with our immersive VR technology. Explore every corner, check finishes, and get a true feel for the space without leaving your home.</p>
+            
+            <div class="vr-container">
+                <div class="vr-content">
+                    <h3>Experience Properties Like Never Before</h3>
+                    <p>Our virtual reality tours let you walk through properties as if you were actually there. With 360° views, interactive floor plans, and detailed measurements, you can make informed decisions without physical visits.</p>
+                    
+                    <div class="vr-features">
+                        <div class="vr-feature">
+                            <i class="fas fa-vr-cardboard vr-icon"></i>
+                            <div>
+                                <h4>VR Compatible</h4>
+                                <p>Use with VR headsets for fully immersive experience</p>
+                            </div>
+                        </div>
+                        <div class="vr-feature">
+                            <i class="fas fa-ruler-combined"></i>
+                            <div>
+                                <h4>Accurate Measurements</h4>
+                                <p>Get exact room dimensions and spatial awareness</p>
+                            </div>
+                        </div>
+                        <div class="vr-feature">
+                            <i class="fas fa-expand-arrows-alt"></i>
+                            <div>
+                                <h4>360° Views</h4>
+                                <p>Look in every direction with full panoramic control</p>
+                            </div>
+                        </div>
+                        <div class="vr-feature">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h4>Available 24/7</h4>
+                                <p>Tour properties anytime, day or night</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn" id="tryVrBtn">
+                        <i class="fas fa-vr-cardboard"></i> Try VR Experience
+                    </button>
+                </div>
+                
+                <div class="vr-demo">
+                    <img src="https://images.unsplash.com/photo-1558036117-15e82a2c9a9a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80" alt="VR Property Tour">
+                    <div class="vr-overlay">
+                        <h4>Luxury Villa VR Tour</h4>
+                        <p>Experience this 5-bedroom villa in full virtual reality</p>
+                        <button class="btn btn-outline" id="playVrTour">
+                            <i class="fas fa-play"></i> Start VR Tour
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Tours -->
+    <section class="featured-tours">
+        <div class="container">
+            <h2 class="section-title">Featured Virtual Tours</h2>
+            <p class="section-subtitle">Browse our collection of properties with virtual tours available. Filter by property type to find exactly what you're looking for.</p>
+            
+            <div class="tours-filter">
+                <button class="filter-btn active" data-filter="all">All Tours</button>
+                <button class="filter-btn" data-filter="house">Houses</button>
+                <button class="filter-btn" data-filter="apartment">Apartments</button>
+                <button class="filter-btn" data-filter="villa">Villas</button>
+                <button class="filter-btn" data-filter="commercial">Commercial</button>
+                <button class="filter-btn" data-filter="luxury">Luxury</button>
+            </div>
+            
+            <div class="tours-grid" id="toursGrid">
+                <!-- Tours will be loaded by JavaScript -->
+            </div>
+            
+            <div style="text-align: center;">
+                <button class="btn" id="loadMoreTours">
+                    <i class="fas fa-plus"></i> Load More Tours
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Tour -->
+    <section class="interactive-tour">
+        <div class="container">
+            <h2 class="section-title">Interactive 360° Property Tour</h2>
+            <p class="section-subtitle">Control the camera and explore this luxury apartment in full 360° detail. Click and drag to look around, or use the controls below.</p>
+            
+            <div class="tour-viewer">
+                <iframe src="https://www.youtube.com/embed/BHACKCNDMW8?controls=0&modestbranding=1&rel=0&showinfo=0" 
+                        title="360 Property Tour" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+            
+            <div class="tour-controls">
+                <button class="control-btn" id="fullscreenBtn">
+                    <i class="fas fa-expand"></i> Fullscreen
+                </button>
+                <button class="control-btn" id="vrModeBtn">
+                    <i class="fas fa-vr-cardboard"></i> VR Mode
+                </button>
+                <button class="control-btn secondary" id="floorPlanBtn">
+                    <i class="fas fa-layer-group"></i> View Floor Plan
+                </button>
+                <button class="control-btn secondary" id="measureBtn">
+                    <i class="fas fa-ruler"></i> Take Measurements
+                </button>
+                <button class="control-btn" id="bookTourBtn">
+                    <i class="fas fa-calendar-check"></i> Book Physical Tour
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How Virtual Tours Work</h2>
+            <p class="section-subtitle">Our process makes it easy to explore properties virtually and make informed decisions</p>
+            
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Browse Tours</h3>
+                    <p>Search our collection of virtual tours by location, price, property type, or specific features.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Start Tour</h3>
+                    <p>Click on any property to begin the virtual tour. Navigate using your mouse, touch, or VR headset.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Explore Fully</h3>
+                    <p>Move through rooms, check measurements, examine finishes, and get a true feel for the space.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Connect with Agent</h3>
+                    <p>When ready, connect directly with a property expert for questions or to schedule an in-person visit.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready for Your Virtual Property Tour?</h2>
+            <p>Experience the future of real estate viewing today. Browse our virtual tours or schedule a personalized VR session with one of our experts.</p>
+            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <button class="btn" id="browseAllTours">
+                    <i class="fas fa-play-circle"></i> Browse All Tours
+                </button>
+                <button class="btn btn-outline" id="scheduleVrDemo">
+                    <i class="fas fa-vr-cardboard"></i> Schedule VR Demo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Prime Properties</h3>
+                    <p>Your trusted partner in real estate. We combine expertise with technology to deliver exceptional property solutions.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="properties.html">Properties</a></li>
+                        <li><a href="professionals.html">Professionals</a></li>
+                        <li><a href="tours.html">Virtual Tours</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Main Street, New York, NY 10001</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@primeproperties.com</li>
+                        <li><i class="fas fa-clock"></i> Mon-Fri: 9am-6pm, Sat: 10am-4pm</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 Prime Properties. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Fullscreen Tour Modal -->
+    <div class="modal" id="tourModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTourTitle">Virtual Tour</h3>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-tour" id="modalTourContent">
+                    <!-- Tour content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Virtual Tours Data
+        const virtualTours = [
+            {
+                id: 1,
+                title: "Luxury Modern Villa",
+                location: "Beverly Hills, CA",
+                image: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80",
+                video: "https://www.youtube.com/embed/BHACKCNDMW8",
+                type: ["house", "luxury"],
+                price: "$2,500,000",
+                bedrooms: 5,
+                bathrooms: 4,
+                sqft: 4500,
+                tourType: "360° Video",
+                vrEnabled: true,
+                description: "Stunning modern villa with panoramic views, smart home features, and luxurious finishes throughout."
+            },
+            {
+                id: 2,
+                title: "Waterfront Penthouse",
+                location: "Miami Beach, FL",
+                image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80",
+                video: "https://www.youtube.com/embed/BHACKCNDMW8",
+                type: ["apartment", "luxury"],
+                price: "$3,200,000",
+                bedrooms: 3,
+                bathrooms: 3,
+                sqft: 3200,
+                tourType: "Interactive 3D",
+                vrEnabled: true,
+                description: "Breathtaking waterfront penthouse with private rooftop terrace and panoramic ocean views."
+            },
+            {
+                id: 3,
+                title: "Mountain Retreat",
+                location: "Aspen, CO",
+                image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1771&q=80",
+                video: "https://www.youtube.com/embed/BHACKCNDMW8",
+                type: ["house"],
+                price: "$1,800,000",
+                bedrooms: 4,
+                bathrooms: 3,
+                sqft: 3200,
+                tourType: "360° Video",
+                vrEnabled: true,
+                description: "Cozy mountain retreat with stunning views, wood finishes, and stone fireplace."
+            },
+            {
+                id: 4,
+                title: "Urban Loft",
+                location: "Soho, NY",
+                image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80",
+                video: "https://www.youtube.com/embed/BHACKCNDMW8",
+                type: ["apartment"],
+                price: "$1,200,000",
+                bedrooms: 2,
+                bathrooms: 2,
+                sqft: 1800,
+                tourType: "Virtual Walkthrough",
+                vrEnabled: false,
+                description: "Chic urban loft with exposed brick, high ceilings, and modern finishes in a trendy neighborhood."
+            },
+            {
+                id: 5,
+                title: "Commercial Office Space",
+                location: "Financial District, NY",
+                image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1769&q=80",
+                video: "https://www.youtube.com/embed/BHACKCNDMW8",
+                type: ["commercial"],
+                price: "$4,500,000",
+                bedrooms: "N/A",
+                bathrooms: 8,
+                sqft: 8500,
+                tourType: "Interactive 3D",
+                vrEnabled: true,
+                description: "Prime commercial office space with modern finishes, conference rooms, and panoramic city views."
+            },
+            {
+                id: 6,
+                title: "Lakefront Property",
+                location: "Lake Tahoe, CA",
+                image: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80",
+                video: "https://www.youtube.com/embed/BHACKCNDMW8",
+                type: ["house", "luxury"],
+                price: "$3,800,000",
+                bedrooms: 6,
+                bathrooms: 5,
+                sqft: 5200,
+                tourType: "Drone + 360°",
+                vrEnabled: true,
+                description: "Beautiful lakefront property with private dock, boat house, and panoramic lake views."
+            },
+            {
+                id: 7,
+                title: "Modern Townhouse",
+                location: "Georgetown, DC",
+                image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80",
+                video: "https://www.youtube.com/embed/BHACKCNDMW8",
+                type: ["house"],
+                price: "$1,500,000",
+                bedrooms: 3,
+                bathrooms: 3,
+                sqft: 2400,
+                tourType: "Virtual Walkthrough",
+                vrEnabled: false,
+                description: "Modern townhouse with rooftop garden, smart home features, and premium finishes."
+            },
+            {
+                id: 8,
+                title: "Luxury Condo",
+                location: "San Francisco, CA",
+                image: "https://images.unsplash.com/photo-1487956382158-bb926046304a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80",
+                video: "https://www.youtube.com/embed/BHACKCNDMW8",
+                type: ["apartment", "luxury"],
+                price: "$2,800,000",
+                bedrooms: 2,
+                bathrooms: 2,
+                sqft: 1800,
+                tourType: "Interactive 3D",
+                vrEnabled: true,
+                description: "Ultra-luxury condo with panoramic city views, private balcony, and premium finishes."
+            },
+            {
+                id: 9,
+                title: "Vacation Villa",
+                location: "Malibu, CA",
+                image: "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1769&q=80",
+                video: "https://www.youtube.com/embed/BHACKCNDMW8",
+                type: ["villa", "luxury"],
+                price: "$5,200,000",
+                bedrooms: 6,
+                bathrooms: 5,
+                sqft: 6200,
+                tourType: "Drone + 360°",
+                vrEnabled: true,
+                description: "Luxury vacation villa with infinity pool, outdoor kitchen, and direct beach access."
+            },
+            {
+                id: 10,
+                title: "Suburban Family Home",
+                location: "Scottsdale, AZ",
+                image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixlib=rb-4.0.3&auto=format&fit=crop&w=1770&q=80",
+                video: "https://www.youtube.com/embed/BHACKCNDMW8",
+                type: ["house"],
+                price: "$850,000",
+                bedrooms: 4,
+                bathrooms: 3,
+                sqft: 2800,
+                tourType: "360° Video",
+                vrEnabled: false,
+                description: "Spacious family home in a quiet suburban neighborhood with large backyard and updated kitchen."
+            },
+            {
+                id: 11,
+                title: "Retail Space",
+                location: "Beverly Hills, CA",
+                image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=1769&q=80",
+                video: "https://www.youtube.com/embed/BHACKCNDMW8",
+                type: ["commercial"],
+                price: "$3,500,000",
+                bedrooms: "N/A",
+                bathrooms: 4,
+                sqft: 5000,
+                tourType: "Virtual Walkthrough",
+                vrEnabled: false,
+                description: "Prime retail space in high-traffic area with excellent visibility and modern storefront."
+            },
+            {
+                id: 12,
+                title: "Beachfront Villa",
+                location: "Santa Barbara, CA",
+                image: "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1769&q=80",
+                video: "https://www.youtube.com/embed/BHACKCNDMW8",
+                type: ["villa", "luxury"],
+                price: "$6,500,000",
+                bedrooms: 7,
+                bathrooms: 6,
+                sqft: 7200,
+                tourType: "Drone + Interactive 3D",
+                vrEnabled: true,
+                description: "Exclusive beachfront villa with private beach access, infinity pool, and panoramic ocean views."
+            }
+        ];
+
+        // DOM Elements
+        const toursGrid = document.getElementById('toursGrid');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const loadMoreBtn = document.getElementById('loadMoreTours');
+        const tryVrBtn = document.getElementById('tryVrBtn');
+        const playVrTourBtn = document.getElementById('playVrTour');
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const vrModeBtn = document.getElementById('vrModeBtn');
+        const floorPlanBtn = document.getElementById('floorPlanBtn');
+        const measureBtn = document.getElementById('measureBtn');
+        const bookTourBtn = document.getElementById('bookTourBtn');
+        const browseAllToursBtn = document.getElementById('browseAllTours');
+        const scheduleVrDemoBtn = document.getElementById('scheduleVrDemo');
+        const tourModal = document.getElementById('tourModal');
+        const modalTourContent = document.getElementById('modalTourContent');
+        const modalTourTitle = document.getElementById('modalTourTitle');
+        const closeModalBtn = document.getElementById('closeModal');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainMenu = document.getElementById('mainMenu');
+
+        // Variables
+        let currentFilter = 'all';
+        let displayedTours = 6;
+        const toursPerLoad = 6;
+
+        // Mobile Menu Toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            mainMenu.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                mainMenu.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Initialize the page
+        function initPage() {
+            displayTours();
+            setupEventListeners();
+        }
+
+        // Display tours based on current filter
+        function displayTours() {
+            toursGrid.innerHTML = '';
+            
+            // Filter tours
+            let filteredTours = virtualTours;
+            if (currentFilter !== 'all') {
+                filteredTours = virtualTours.filter(tour => 
+                    tour.type.includes(currentFilter)
+                );
+            }
+            
+            // Limit to currently displayed count
+            const toursToShow = filteredTours.slice(0, displayedTours);
+            
+            // Create tour cards
+            toursToShow.forEach(tour => {
+                const tourCard = createTourCard(tour);
+                toursGrid.appendChild(tourCard);
+            });
+            
+            // Update load more button visibility
+            if (filteredTours.length <= displayedTours) {
+                loadMoreBtn.style.display = 'none';
+            } else {
+                loadMoreBtn.style.display = 'inline-flex';
+            }
+            
+            // If no tours found
+            if (toursToShow.length === 0) {
+                toursGrid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
+                        <i class="fas fa-video-slash" style="font-size: 4rem; color: #bdc3c7; margin-bottom: 20px;"></i>
+                        <h3 style="color: var(--primary); margin-bottom: 10px;">No Virtual Tours Found</h3>
+                        <p style="color: #7f8c8d; max-width: 500px; margin: 0 auto;">We couldn't find any virtual tours matching your filter. Try selecting a different category.</p>
+                    </div>
+                `;
+                loadMoreBtn.style.display = 'none';
+            }
+        }
+
+        // Create a tour card element
+        function createTourCard(tour) {
+            const card = document.createElement('div');
+            card.className = 'tour-card';
+            card.dataset.id = tour.id;
+            
+            card.innerHTML = `
+                <div class="tour-media">
+                    ${tour.vrEnabled ? '<div class="tour-badge"><i class="fas fa-vr-cardboard"></i> VR Enabled</div>' : ''}
+                    <img src="${tour.image}" alt="${tour.title}">
+                </div>
+                <div class="tour-info">
+                    <h3>${tour.title}</h3>
+                    <div class="tour-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>${tour.location}</span>
+                    </div>
+                    <p class="tour-description">${tour.description}</p>
+                    <div class="tour-features">
+                        <div class="tour-feature">
+                            <i class="fas fa-bed"></i>
+                            <div class="tour-feature-value">${tour.bedrooms}</div>
+                            <div class="tour-feature-label">Bedrooms</div>
+                        </div>
+                        <div class="tour-feature">
+                            <i class="fas fa-bath"></i>
+                            <div class="tour-feature-value">${tour.bathrooms}</div>
+                            <div class="tour-feature-label">Bathrooms</div>
+                        </div>
+                        <div class="tour-feature">
+                            <i class="fas fa-ruler-combined"></i>
+                            <div class="tour-feature-value">${tour.sqft}</div>
+                            <div class="tour-feature-label">Sq Ft</div>
+                        </div>
+                    </div>
+                    <div class="tour-actions">
+                        <div class="tour-price">${tour.price}</div>
+                        <button class="btn start-tour-btn" data-id="${tour.id}">
+                            <i class="fas fa-play"></i> Start Tour
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Add event listener to start tour button
+            card.querySelector('.start-tour-btn').addEventListener('click', () => startTour(tour.id));
+            
+            return card;
+        }
+
+        // Start a virtual tour
+        function startTour(tourId) {
+            const tour = virtualTours.find(t => t.id === tourId);
+            if (!tour) return;
+            
+            modalTourTitle.textContent = tour.title;
+            modalTourContent.innerHTML = `
+                <iframe src="${tour.video}?autoplay=1&controls=1&modestbranding=1&rel=0&showinfo=0" 
+                        title="${tour.title} Virtual Tour" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        style="width: 100%; height: 100%; border: none;">
+                </iframe>
+            `;
+            
+            tourModal.style.display = 'block';
+        }
+
+        // Filter tours by type
+        function filterTours(filter) {
+            // Update active filter button
+            filterButtons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.filter === filter) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Update current filter and reset displayed count
+            currentFilter = filter;
+            displayedTours = 6;
+            
+            // Display filtered tours
+            displayTours();
+        }
+
+        // Load more tours
+        function loadMoreTours() {
+            displayedTours += toursPerLoad;
+            displayTours();
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Filter buttons
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterTours(btn.dataset.filter);
+                });
+            });
+            
+            // Load more button
+            loadMoreBtn.addEventListener('click', loadMoreTours);
+            
+            // VR Experience buttons
+            tryVrBtn.addEventListener('click', () => {
+                alert("VR Experience: Put on your VR headset and prepare for an immersive property tour. Our VR demo will guide you through a luxury property.");
+            });
+            
+            playVrTourBtn.addEventListener('click', () => {
+                startTour(1); // Start the first tour (Luxury Modern Villa)
+            });
+            
+            // Interactive tour controls
+            fullscreenBtn.addEventListener('click', () => {
+                const iframe = document.querySelector('.tour-viewer iframe');
+                if (iframe.requestFullscreen) {
+                    iframe.requestFullscreen();
+                } else if (iframe.webkitRequestFullscreen) {
+                    iframe.webkitRequestFullscreen();
+                } else if (iframe.msRequestFullscreen) {
+                    iframe.msRequestFullscreen();
+                }
+            });
+            
+            vrModeBtn.addEventListener('click', () => {
+                alert("VR Mode Activated: For the best experience, use a VR headset. The tour will now display in stereoscopic 3D.");
+            });
+            
+            floorPlanBtn.addEventListener('click', () => {
+                alert("Floor Plan View: Displaying interactive floor plan with room dimensions and layout details.");
+            });
+            
+            measureBtn.addEventListener('click', () => {
+                alert("Measurement Tool: Click and drag to measure distances between walls, windows, and furniture in the virtual tour.");
+            });
+            
+            bookTourBtn.addEventListener('click', () => {
+                alert("Physical Tour Booking: Connecting you with our scheduling team to arrange an in-person viewing of this property.");
+            });
+            
+            // CTA buttons
+            browseAllToursBtn.addEventListener('click', () => {
+                filterTours('all');
+                window.scrollTo({
+                    top: document.querySelector('.featured-tours').offsetTop - 100,
+                    behavior: 'smooth'
+                });
+            });
+            
+            scheduleVrDemoBtn.addEventListener('click', () => {
+                alert("VR Demo Scheduling: Our VR specialist will contact you to schedule a personalized virtual reality property tour demonstration.");
+            });
+            
+            // Modal close button
+            closeModalBtn.addEventListener('click', () => {
+                tourModal.style.display = 'none';
+            });
+            
+            // Close modal when clicking outside
+            tourModal.addEventListener('click', (e) => {
+                if (e.target === tourModal) {
+                    tourModal.style.display = 'none';
+                }
+            });
+            
+            // Close modal with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && tourModal.style.display === 'block') {
+                    tourModal.style.display = 'none';
+                }
+            });
+        }
+
+        // Initialize the page
+        initPage();
+    </script>
+</body>
+</html>
